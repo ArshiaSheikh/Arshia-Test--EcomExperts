@@ -91,7 +91,28 @@ if (!customElements.get('product-form')) {
           .catch((e) => {
             console.error(e);
           })
+          
           .finally(() => {
+          
+            if( formData.get('id') == '40394021404805' ){
+              let discountedvariantID = "40392979939461"
+              let noOfitems = evt.target.closest('product-info').querySelector('.quantity__input').value;
+              fetch("/cart/add.json", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    id: discountedvariantID,
+                    quantity: noOfitems
+                })})
+              .then((response) => response.json())
+              .then((response) => {
+                if (response.status) {
+                }}); 
+            }
+      
             this.submitButton.classList.remove('loading');
             if (this.cart && this.cart.classList.contains('is-empty')) this.cart.classList.remove('is-empty');
             if (!this.error) this.submitButton.removeAttribute('aria-disabled');

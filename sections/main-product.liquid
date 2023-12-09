@@ -590,6 +590,10 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      const productTitle = "{{product.title }}";
+      if(productTitle == "Handbag"){
+        document.querySelector('input[value="Unselected"]').click()
+      }
       function isIE() {
         const ua = window.navigator.userAgent;
         const msie = ua.indexOf('MSIE ');
