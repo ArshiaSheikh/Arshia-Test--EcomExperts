@@ -1268,3 +1268,19 @@ class ProductRecommendations extends HTMLElement {
 }
 
 customElements.define('product-recommendations', ProductRecommendations);
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Get the select element
+  let sizeSelect = document.querySelector('.size_select');
+
+  // Add an event listener for the change event on the select element
+  sizeSelect.addEventListener('change', function () {
+    debugger;
+      // Get the selected value
+      let selectedValue = sizeSelect.value;
+
+      // Identify the corresponding input element based on the selected value
+      document.querySelector(`input[value="${selectedValue}"]`).click()
+  });
+});

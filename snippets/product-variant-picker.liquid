@@ -25,8 +25,25 @@
         <fieldset class="js product-form__input">
           <legend class="form__label">{{ option.name }}</legend>
           {% assign showSwatch = false %}
-          {% if option.name == 'Color'  %} {% assign showSwatch = true %} {% endif %}
-            {% render 'product-variant-options', product: product, option: option, block: block , showSwatch : showSwatch %}
+          {% if option.name == 'Color' %} {% assign showSwatch = true %} {% endif %}
+
+          {% render 'product-variant-options', product: product, option: option, block: block, showSwatch: showSwatch %}
+          {% if option.name == 'Size' %}
+            <div class="select">
+              <select
+                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                class="select__select size_select"
+                name="size-option"
+              >
+                {% render 'product-variant-options',
+                  product: product,
+                  option: option,
+                  block: block,
+                  showOptions: true
+                %}
+              </select>
+              <div>
+          {% endif %}
         </fieldset>
       {%- endfor -%}
       <script type="application/json">
