@@ -593,6 +593,16 @@
       const productTitle = "{{product.title }}";
       if(productTitle == "Handbag"){
         document.querySelector('input[value="Unselected"]').click()
+        let selectElement = document.getElementsByName("size-option")[0];
+
+          // Iterate through the options and select the one with the value "unselected"
+          for (let i = 0; i < selectElement.options.length; i++) {
+              if (selectElement.options[i].value === "unselected") {
+                  selectElement.selectedIndex = i;
+                  break; // Stop the loop once the option is found
+              }
+          }
+
       }
       function isIE() {
         const ua = window.navigator.userAgent;

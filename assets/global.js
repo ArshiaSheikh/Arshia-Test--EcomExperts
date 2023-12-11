@@ -1276,7 +1276,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Add an event listener for the change event on the select element
   sizeSelect.addEventListener('change', function () {
-    debugger;
       // Get the selected value
       let selectedValue = sizeSelect.value;
 

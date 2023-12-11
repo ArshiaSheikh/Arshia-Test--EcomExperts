@@ -49,9 +49,6 @@
     {% if showOptions %}
       <option
         value="{{ value | escape }}"
-        {% if option.selected_value == value %}
-          selected="selected"
-        {% endif %}
       >
         {{- value -}}
       </option>
