@@ -936,7 +936,7 @@ class SlideshowComponent extends SliderComponent {
     const slideScrollPosition =
       this.slider.scrollLeft +
       this.sliderFirstItemNode.clientWidth *
-        (this.sliderControlLinksArray.indexOf(event.currentTarget) + 1 - this.currentPage);
+      (this.sliderControlLinksArray.indexOf(event.currentTarget) + 1 - this.currentPage);
     this.slider.scrollTo({
       left: slideScrollPosition,
     });
@@ -1073,8 +1073,7 @@ class VariantSelects extends HTMLElement {
     const sectionId = this.dataset.originalSection ? this.dataset.originalSection : this.dataset.section;
 
     fetch(
-      `${this.dataset.url}?variant=${requestedVariantId}&section_id=${
-        this.dataset.originalSection ? this.dataset.originalSection : this.dataset.section
+      `${this.dataset.url}?variant=${requestedVariantId}&section_id=${this.dataset.originalSection ? this.dataset.originalSection : this.dataset.section
       }`
     )
       .then((response) => response.text())
@@ -1160,7 +1159,12 @@ class VariantSelects extends HTMLElement {
 
     if (disable) {
       addButton.setAttribute('disabled', 'disabled');
-      if (text) addButtonText.textContent = text;
+      if (this.currentVariant.title.indexOf("Unselected") > -1) {
+        addButtonText.textContent = window.variantStrings.addToCart;
+      } else {
+        if (text) { addButtonText.textContent = text; }
+      }
+
     } else {
       addButton.removeAttribute('disabled');
       addButtonText.textContent = window.variantStrings.addToCart;
@@ -1264,3 +1268,18 @@ class ProductRecommendations extends HTMLElement {
 }
 
 customElements.define('product-recommendations', ProductRecommendations);
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Get the select element
+  let sizeSelect = document.querySelector('.size_select');
+
+  // Add an event listener for the change event on the select element
+  sizeSelect.addEventListener('change', function () {
+      // Get the selected value
+      let selectedValue = sizeSelect.value;
+
+      // Identify the corresponding input element based on the selected value
+      document.querySelector(`input[value="${selectedValue}"]`).click()
+  });
+});

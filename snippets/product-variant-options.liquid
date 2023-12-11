@@ -46,23 +46,45 @@
   -%}
 
   {%- if block.settings.picker_type == 'button' -%}
-    <input
-      type="radio"
-      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-      name="{{ option.name }}"
-      value="{{ value | escape }}"
-      form="{{ product_form_id }}"
-      {% if option.selected_value == value %}
-        checked
-      {% endif %}
-      {% if option_disabled %}
-        class="disabled"
-      {% endif %}
-    >
-    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-      {{ value -}}
-      <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
-    </label>
+    {% if showOptions %}
+      <option
+        value="{{ value | escape }}"
+      >
+        {{- value -}}
+      </option>
+    {% else %}
+      <input
+        type="radio"
+        id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+        name="{{ option.name }}"
+        value="{{ value | escape }}"
+        form="{{ product_form_id }}"
+        {% if option.selected_value == value %}
+          checked
+        {% endif %}
+        {% if option_disabled %}
+          class="disabled"
+        {% endif %}
+      >
+      <label
+        {% if option.name == 'Size' %}
+          style="display:none"
+        {% endif %}
+        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+      >
+        {% if showSwatch %}
+          {% for variant in product.variants %}
+            {% if variant.title contains value and variant.featured_image %}
+              <img src="{{ variant.featured_image | image_url: width: 50 }}" alt="{{ value }}">
+              {% break %}
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          {{ value -}}
+        {% endif %}
+        <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+      </label>
+    {% endif %}
   {%- elsif block.settings.picker_type == 'dropdown' -%}
     <option
       value="{{ value | escape }}"
